@@ -1,12 +1,9 @@
 ﻿// this is the code which will be injected into a given page...
 (function () {
-    var Wisp, Luffy, Zoro, Nami, Usopp, Sanji, Chopper, SwordMarine, RifleMarine, Buggy, Charas;
-    var Groups = document.getElementsByClassName("groupname")
-
-    // Specify Group Name. There were too many duplicated character names.
-    for (var i = 0; i < Groups.length; i++)
-        if (Groups[i].innerText === "흔함")
-            Charas = Groups[i].parentElement.getElementsByClassName("name");
+    let text, Commons = [];
+    let Characters, Groups = document.getElementsByClassName("groupname");
+    let items = document.getElementsByClassName("item");
+    let CharactersCountMap = new Map();
 
     // Shortcut Function
     function AddShortcut(target, number) {
@@ -15,78 +12,45 @@
         numberDiv.innerText = number;
         numberDiv.style.width = "100px";
         numberDiv.style.textAlign = "right";
-        target.parentElement.insertBefore(numberDiv, target);
-        return target;
+        target.parentElement.appendChild(numberDiv);
+        Commons[number] = target;
     }
 
-    // Find characters and save it for later
-    for (var i = 0; i < Charas.length; i++) {
-        var text = Charas[i].innerText;
-        if (text === "위습") Wisp = AddShortcut(Charas[i], 0);
-        else if (text === "루피") Luffy = AddShortcut(Charas[i], 1);
-        else if (text === "조로") Zoro = AddShortcut(Charas[i], 2);
-        else if (text === "나미") Nami = AddShortcut(Charas[i], 3);
-        else if (text === "우솝") Usopp = AddShortcut(Charas[i], 4);
-        else if (text === "상디") Sanji = AddShortcut(Charas[i], 5);
-        else if (text === "쵸파") Chopper = AddShortcut(Charas[i], 6);
-        else if (text === "칼병") SwordMarine = AddShortcut(Charas[i], 7);
-        else if (text === "총병") RifleMarine = AddShortcut(Charas[i], 8);
-        else if (text === "버기") Buggy = AddShortcut(Charas[i], 9);
+    // Set common characters
+    for (i = 0; i < items.length; i++) {
+        var uindex = items[i].getAttribute("uindex");
+        CharactersCountMap.set(uindex, items[i].getElementsByClassName("count")[0].value);
+        if (uindex < 10)
+            AddShortcut(items[i].getElementsByClassName("name")[0], uindex);
     }
 
     // KeyBinding
     window.addEventListener("keydown", function (event) {
-        // Disable when typing
-        var target = event.target || event.srcElement;
-        if (target.tagName == "INPUT") return;
+        // Disable when typing in input box
+        let target = event.target || event.srcElement;
+        if (target.tagName === "INPUT") return;
 
         // Click
-        if (event.key === '0') Wisp.click();
-        else if (event.key === '1') Luffy.click();
-        else if (event.key === '2') Zoro.click();
-        else if (event.key === '3') Nami.click();
-        else if (event.key === '4') Usopp.click();
-        else if (event.key === '5') Sanji.click();
-        else if (event.key === '6') Chopper.click();
-        else if (event.key === '7') SwordMarine.click();
-        else if (event.key === '8') RifleMarine.click();
-        else if (event.key === '9') Buggy.click();
+        if (event.key >= '0' && event.key <= '9')
+            Commons[event.key].click();
     }, true);
 
-    // Specify Group Name. There were too many duplicated character names.
-    for (var i = 0; i < Groups.length; i++)
-        if (Groups[i].innerText === "전설적인")
-            Charas = Groups[i].parentElement.getElementsByClassName("name");
+    function StoryBold(GroupName, CharactersNames) {
+        // Specify Group Name. There were too many duplicated character names.
+        for (let i = 0; i < Groups.length; i++)
+            if (Groups[i].innerText === GroupName)
+                Characters = Groups[i].parentElement.getElementsByClassName("name");
 
-    // Make legend story characters bold
-    for (var i = 0; i < Charas.length; i++) {
-        var text = Charas[i].innerText;
-        if (!text.indexOf("루치") || !text.indexOf("징베") || !text.indexOf("검은수염") || !text.indexOf("상디") || !text.indexOf("카르가라") || !text.indexOf("아카이누") || !text.indexOf("조로"))
-            Charas[i].style.fontWeight = 'bold';
+        // Make special story characters bold
+        for (let i = 0; i < Characters.length; i++) {
+            text = Characters[i].innerText;
+            for (let c of CharactersNames)
+                if (!text.indexOf(c))
+                    Characters[i].style.fontWeight = 'bold';
+        }
     }
-
-    // Specify Group Name. There were too many duplicated character names.
-    for (var i = 0; i < Groups.length; i++)
-        if (Groups[i].innerText === "희귀함")
-            Charas = Groups[i].parentElement.getElementsByClassName("name");
-
-    // Make rare story characters bold
-    for (var i = 0; i < Charas.length; i++) {
-        var text = Charas[i].innerText;
-        if (text === "검은수염" || text === "로우" || text === "반더데켄" || text === "상디" || text === "스모커" || text === "아카이누" || text === "제프" || text === "조로" || text === "키드" || text === "킨에몬")
-            Charas[i].style.fontWeight = 'bold';
-    }
-
-    // Specify Group Name. There were too many duplicated character names.
-    for (var i = 0; i < Groups.length; i++)
-        if (Groups[i].innerText === "특별함")
-            Charas = Groups[i].parentElement.getElementsByClassName("name");
-
-    // Make special story characters bold
-    for (var i = 0; i < Charas.length; i++) {
-        var text = Charas[i].innerText;
-        if (text === "나미" || text === "X-드레이크" || text === "루피" || text === "상디" || text === "에이스" || text === "이나즈마" || text === "조로 귀기" || text === "키드" || text === "킬러" || text === "타시기" || text === "카포네 갱 벳지" || text === "버기")
-            Charas[i].style.fontWeight = 'bold';
-    }
-
+    StoryBold("히든", ["아카이누"]);
+    StoryBold("전설적인", ["루치", "징베", "검은수염", "상디", "카르가라", "조로"]);
+    StoryBold("희귀함", ["검은수염", "로우", "반더데켄", "상디", "스모커", "아카이누", "제프", "조로", "키드", "킨에몬"]);
+    StoryBold("특별함", ["나미", "X-드레이크", "루피", "상디", "에이스", "이나즈마", "조로 귀기", "키드", "킬러", "타시기", "카포네 갱 벳지", "버기"]);
 })();
