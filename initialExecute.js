@@ -1,5 +1,6 @@
 ﻿// this is the code which will be injected into a given page...
 (function () {
+    console.log("Sions X");
     let text, Commons = [];
     let Characters, Groups = document.getElementsByClassName("groupname");
     let items = document.getElementsByClassName("item");
