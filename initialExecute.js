@@ -1,5 +1,10 @@
 ﻿// this is the code which will be injected into a given page...
 (function () {
+    if (typeof IsDefined !== "undefined") {
+        console.log("IsDefined : " + IsDefined);
+        return;
+    }
+    IsDefined = true;
     console.log("Sions X for ORD 8.7 Fix 4");
     let text, Commons = [];
     let Characters, Groups = document.getElementsByClassName("groupname");
