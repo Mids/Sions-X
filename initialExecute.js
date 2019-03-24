@@ -1,5 +1,13 @@
 ﻿// this is the code which will be injected into a given page...
 (function () {
+    // Reset Everything
+    let InputBoxes = document.getElementsByClassName("count");
+    for (let i = 0; i < InputBoxes.length; i++){
+        if(InputBoxes[i].value === "0") continue;
+        InputBoxes[i].value = "0";
+        InputBoxes[i].dispatchEvent(new Event('keyup'));
+    }
+
     if (typeof IsDefined !== "undefined") {
         console.log("IsDefined : " + IsDefined);
         return;
