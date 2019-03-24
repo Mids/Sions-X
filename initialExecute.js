@@ -1,6 +1,6 @@
 ﻿// this is the code which will be injected into a given page...
 (function () {
-    console.log("Sions X");
+    console.log("Sions X for ORD 8.7 Fix 4");
     let text, Commons = [];
     let Characters, Groups = document.getElementsByClassName("groupname");
     let items = document.getElementsByClassName("item");
@@ -50,8 +50,7 @@
                     Characters[i].style.fontWeight = 'bold';
         }
     }
-    StoryBold("변화", ["코비", "에이스"]);
-    StoryBold("히든", ["아카이누", "시류", "사보", "베르고", "킨에몬"]);
-    StoryBold("전설적인", ["루치", "징베", "검은수염", "상디", "카르가라", "조로", "거프", "레이쥬", "슈가", "샹크스"]);
-    StoryBold("희귀함", ["검은수염", "로우", "반더데켄", "상디", "스모커", "아카이누", "제프", "조로", "키드", "킨에몬"]);
+    StoryBold("히든", ["아카이누", "시류", "사보", "베르고", "레드포스호"]);
+    StoryBold("전설적인", ["거프", "검은수염", "레이쥬", "로브 루치", "로우", "루피 나이트메어", "바르톨로메오", "샹크스", "상디", "슈가", "조로", "징베"]);
+    StoryBold("희귀함", ["로우", "마젤란", "바르톨로메오", "바질 호킨스", "반 더 데켄", "벤베크만", "사보", "상디", "스모커", "아카이누", "오즈", "키드"]);
 })();
