@@ -66,4 +66,29 @@
     StoryBold("히든", ["아카이누", "시류", "사보", "베르고", "레드포스호"]);
     StoryBold("전설적인", ["거프", "검은수염", "레이쥬", "로브 루치", "로우", "루피 나이트메어", "바르톨로메오", "샹크스", "상디", "슈가", "조로", "징베"]);
     StoryBold("희귀함", ["로우", "마젤란", "바르톨로메오", "바질 호킨스", "반 더 데켄", "벤베크만", "사보", "상디", "스모커", "아카이누", "오즈", "키드"]);
+
+    let ADColor = "#FF7700AA";
+    let APColor = "#00BBFFAA";
+    let HybridColor = "#007700FF";
+    let ADText = "물뎀";
+    let APText = "마뎀";
+
+    // Colorize ad or ap character
+    function Colorize() {
+        for (let i = 0; i < Groups.length; i++) {
+            Characters = Groups[i].parentElement.getElementsByClassName("name");
+
+            for (let i = 0; i < Characters.length; i++) {
+                text = Characters[i].innerText;
+                if (text.indexOf(ADText) !== -1 && text.indexOf(APText) !== -1)
+                    Characters[i].style.color = HybridColor;
+                else if (text.indexOf(ADText) !== -1)
+                    Characters[i].style.color = ADColor;
+                else if (text.indexOf(APText) !== -1)
+                    Characters[i].style.color = APColor;
+            }
+        }
+    }
+
+    Colorize();
 })();
