@@ -58,7 +58,7 @@
         for (let i = 0; i < Characters.length; i++) {
             text = Characters[i].innerText;
             for (let c of CharactersNames)
-                if (!text.indexOf(c))
+                if (text.indexOf(c) !== -1)
                     Characters[i].style.fontWeight = 'bold';
         }
     }
